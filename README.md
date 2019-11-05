@@ -2,7 +2,7 @@
 
 Scripts para coleta, limpeza e visualização dos dados sobre derramamento de óleo na praias brasileiras.
 
-Veja [aqui](https://kguidonimartins.github.io/monitora-derramamento-oleo/)!
+Veja [aqui](https://kguidonimartins.github.io/monitora-derramamento-oleo/index.html)!
 
 ## Reprodução do relatório
 
