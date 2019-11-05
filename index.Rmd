@@ -1,0 +1,194 @@
+---
+title: "Última atualização: `r format(Sys.time(), '%d de %B de %Y às %X')`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    css: style/style.css
+---
+
+Os dados podem ser coletados aqui: http://www.ibama.gov.br/manchasdeoleo-localidades-atingidas
+
+O código que produz este relatório pode ser encontrado aqui: https://github.com/kguidonimartins/scrape_derramamento_de_oleo_br
+
+A única diferença dos dados usados aqui dos dados originais é a transformação das coordenadas geográficas de **graus, minutos e segundos** para **graus decimais**. O objetivo aqui é apresentar os dados de uma forma mais integrada.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = FALSE, message = "hide")
+
+ipak <- function(pkg) {
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg)){
+    install.packages(new.pkg, dependencies = TRUE)
+  }
+  suppressPackageStartupMessages(sapply(pkg, require, character.only = TRUE))
+}
+
+ipak(
+  c(
+    "tidyverse",
+    "tidylog",
+    "fs",
+    "here",
+    "tools",
+    "plotly",
+    "DT",
+    "leaflet",
+    "mapview",
+    "leafem",
+    "leafpop",
+    "raster",
+    "lubridate"
+  )
+)
+
+theme_set(theme_light(base_size = 14))
+
+render_table <- function(data){
+  datatable(
+  data,
+  rownames = TRUE,
+  filter = "top",
+  options = list(pageLength = 10, scrollX = TRUE),
+  class = 'cell-border stripe'
+)
+}
+```
+
+***
+
+# Localidades monitoradas
+
+```{r, eval = TRUE, message = FALSE}
+last_file_on_local_folder <-
+  dir_info(here::here("data-clean")) %>% 
+  mutate(file_type = file_ext(path)) %>% 
+  arrange(desc(birth_time)) %>% 
+  filter(file_type == "csv") %>% 
+  slice(1) %>% 
+  pull(path)
+
+df <- read_csv(last_file_on_local_folder) %>% 
+  rename(
+    Localidade = name,
+    `Município` = `município`,
+    Estado = estado,
+    Status = status
+  ) %>% 
+  mutate(
+      intervalo_entre_visitas_dias = as.period(x = data_avist %--% data_revis, unit = "day"),
+      intervalo_entre_visitas_dias = str_extract(intervalo_entre_visitas_dias, "[0-9]+")
+      ) %>% 
+  dplyr::select(
+    Localidade,
+    `Município`,
+    Estado,
+    data_avist,
+    data_revis,
+    intervalo_entre_visitas_dias,
+    latitude,
+    longitude,
+    Status
+  )
+
+render_table(df)
+```
+
+## Locais revisitados
+
+```{r, eval = TRUE}
+df %>% 
+  filter(!is.na(data_revis)) %>% 
+  render_table()
+```
+
+## Locais revisitados que não têm óleo
+
+```{r, eval = TRUE}
+df %>% 
+  filter(!is.na(data_revis), Status == "Óleo - Não Observado") %>% 
+  render_table()
+```
+
+## Locais revisitados que ainda têm óleo
+
+```{r, eval = TRUE}
+df %>% 
+  filter(!is.na(data_revis), Status %in% c("Oleada - Vestígios/Esparsos", "Oleada - Manchas")) %>% 
+  render_table()
+```
+
+## Locais que não foram revisitados e que não têm óleo
+
+```{r, eval = TRUE}
+df %>% 
+  filter(is.na(data_revis), Status == "Óleo - Não Observado") %>% 
+  render_table()
+```
+
+## Locais que não foram revisitados e que têm óleo
+
+```{r, eval = TRUE}
+df %>% 
+  filter(is.na(data_revis), Status %in% c("Oleada - Vestígios/Esparsos", "Oleada - Manchas")) %>% 
+  render_table()
+```
+
+***
+
+# Localidades monitoradas por Estado
+
+```{r, eval = TRUE, message = FALSE, fig.height=7, fig.width=10}
+df %>% 
+  group_by(Estado, Status) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(Estado = fct_reorder(Estado, n)) %>% 
+  ggplot(aes(x = Estado, y = n)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    x = "",
+    y = "Número de registros",
+    # title = "Registros por Estado", 
+    caption = "Fonte: http://www.ibama.gov.br/manchasdeoleo-localidades-atingidas"
+  ) + 
+  facet_wrap( ~Status)
+```
+
+***
+
+# Mapa interativo das localidades monitoradas
+
+<!-- *NOTA: As coordenadas suspeitas (nos Estados de São Paulo e Espírito Santo) já foram reportadas.* -->
+
+Clique nos círculos para ter acesso às informações da localidade.
+
+```{r, eval = TRUE, fig.height=7, fig.width=9}
+pal <- colorFactor(palette = c("black", "grey", "green"), domain = df$Status)
+extensao <- raster::extent(sp::SpatialPoints(df[, c("longitude", "latitude")]))
+
+mapa_oleo <- leaflet(df) %>%
+  addTiles() %>%
+  addCircleMarkers(
+      lng = ~ longitude,
+      lat = ~ latitude,
+      popup = ~popupTable(
+        x = df, 
+        zcol = c("Localidade", "Município", "Estado", "Status"), 
+        row.numbers = FALSE, 
+        feature.id = FALSE
+        ),
+      stroke = FALSE, 
+      radius = 10, 
+      fillOpacity = 0.7,
+      color = ~pal(Status)
+      ) %>% 
+  addLegend(position = "bottomright", pal = pal, values = ~Status, opacity = 1) %>% 
+  addMouseCoordinates() %>% 
+  addMiniMap(position = "bottomleft") %>% 
+  addHomeButton(ext = extensao, layer.name = "Visão geral")
+
+mapa_oleo
+```
+
