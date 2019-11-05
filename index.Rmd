@@ -38,7 +38,8 @@ ipak(
     "leafem",
     "leafpop",
     "raster",
-    "lubridate"
+    "lubridate",
+    "widgetframe" 
   )
 )
 
@@ -51,7 +52,8 @@ render_table <- function(data){
   filter = "top",
   options = list(pageLength = 10, scrollX = TRUE),
   class = 'cell-border stripe'
-)
+) %>% 
+  frameWidget(height = 500, width = '100%')
 }
 ```
 
@@ -164,7 +166,7 @@ df %>%
 
 Clique nos círculos para ter acesso às informações da localidade.
 
-```{r, eval = TRUE, fig.height=7, fig.width=9}
+```{r, eval = TRUE, fig.height=6, fig.width=9}
 pal <- colorFactor(palette = c("black", "grey", "green"), domain = df$Status)
 extensao <- raster::extent(sp::SpatialPoints(df[, c("longitude", "latitude")]))
 
