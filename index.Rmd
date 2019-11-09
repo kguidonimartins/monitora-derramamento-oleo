@@ -5,6 +5,8 @@ output:
     toc: true
     toc_float: true
     css: style/style.css
+    includes:
+      in_header: google_analytics.html
 ---
 
 Os dados podem ser coletados aqui: http://www.ibama.gov.br/manchasdeoleo-localidades-atingidas
