@@ -53,7 +53,8 @@ ipak(
     "leafpop",
     "raster",
     "lubridate",
-    "widgetframe" 
+    "widgetframe",
+    "shiny"
   )
 )
 
@@ -184,15 +185,13 @@ df %>%
 
 # Mapa interativo das localidades monitoradas
 
-<!-- *NOTA: As coordenadas suspeitas (nos Estados de São Paulo e Espírito Santo) já foram reportadas.* -->
-
 Clique nos círculos para ter acesso às informações da localidade.
 
-```{r, eval = TRUE, fig.height=6, fig.width=9}
+```{r, eval = TRUE}
 pal <- colorFactor(palette = c("black", "grey", "green"), domain = df$Status)
 extensao <- raster::extent(sp::SpatialPoints(df[, c("longitude", "latitude")]))
 
-mapa_oleo <- leaflet(df) %>%
+mapa_oleo <- leaflet(df, width="100%") %>%
   addTiles() %>%
   addCircleMarkers(
       lng = ~ longitude,
@@ -214,5 +213,13 @@ mapa_oleo <- leaflet(df) %>%
   addHomeButton(ext = extensao, layer.name = "Visão geral")
 
 mapa_oleo
+```
+
+
+```{r echo=FALSE, warning=FALSE}
+# https://stackoverflow.com/a/36210442/5974372
+fluidRow(
+  column(width = 10, mapa_oleo)
+)
 ```
 

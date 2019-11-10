@@ -29,4 +29,5 @@ Imports:
     raster,
     lubridate,
     widgetframe,
-    udunits2
+    udunits2,
+    shiny
