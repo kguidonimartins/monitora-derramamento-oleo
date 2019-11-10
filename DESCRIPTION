@@ -1,0 +1,30 @@
+Package: monitora-derramamento-oleo
+Title: Site que monitora o óleo nas praias brasileiras
+Version: 0.1
+Date: 2018-05-31
+Authors@R: person("Karlo", "Guidoni Martins", 
+           email = "kguidonimartins@gmail.com",
+           role = c("aut", "cre"))
+Description: Site para monitorar o óleo em praias em brasileiras
+             usando os dados oficiais do IBAMA.
+License: MIT + file LICENSE
+RoxygenNote: 6.1.1
+Imports: 
+    tidyverse,
+    tidylog,
+    readxl,
+    here,
+    biogeo,
+    plotly,
+    fs,
+    tools,
+    rvest,
+    rmarkdown,
+    DT,
+    leaflet,
+    mapview,
+    leafem,
+    leafpop,
+    raster,
+    lubridate,
+    widgetframe
