@@ -1,5 +1,7 @@
 language: r
 sudo: false
+before_install: sudo apt-get -y install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev libgdal-dev bwidget libgdal-dev libgdal1-dev libgeos-dev libgeos++-dev libgsl0-dev libproj-dev libspatialite-dev netcdf-bin libgmp3-dev libudunits2-dev
+
 script: get-data_and_build-site.sh
 cache: packages
 r_packages:
@@ -14,6 +16,7 @@ r_packages:
   - rvest
   - rmarkdown
   - DT
+  - sf
   - leaflet
   - mapview
   - leafem
@@ -21,5 +24,6 @@ r_packages:
   - raster
   - lubridate
   - widgetframe
+  - udunits2
 os:
   - linux

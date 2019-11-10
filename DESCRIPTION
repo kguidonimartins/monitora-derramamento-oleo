@@ -21,10 +21,12 @@ Imports:
     rvest,
     rmarkdown,
     DT,
+    sf,
     leaflet,
     mapview,
     leafem,
     leafpop,
     raster,
     lubridate,
-    widgetframe
+    widgetframe,
+    udunits2
