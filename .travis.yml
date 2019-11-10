@@ -1,0 +1,25 @@
+language: r
+sudo: false
+script: get-data_and_build-site.sh
+cache: packages
+r_packages:
+  - tidyverse
+  - tidylog
+  - readxl
+  - here
+  - biogeo
+  - plotly
+  - fs
+  - tools
+  - rvest
+  - rmarkdown
+  - DT
+  - leaflet
+  - mapview
+  - leafem
+  - leafpop
+  - raster
+  - lubridate
+  - widgetframe
+os:
+  - linux
