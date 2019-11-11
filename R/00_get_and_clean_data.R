@@ -16,7 +16,21 @@ ipak <- function(pkg) {
   suppressPackageStartupMessages(sapply(pkg, require, character.only = TRUE))
 }
 
-ipak(c("tidyverse", "tidylog", "readxl", "here", "biogeo", "plotly", "fs", "tools", "rvest"))
+ipak(
+  c(
+    "tidyverse",
+    "tidylog",
+    "readxl",
+    "here",
+    "biogeo",
+    "plotly",
+    "fs",
+    "tools",
+    "rvest",
+    "janitor"
+  )
+)
+
 
 
 ############################################################
@@ -84,7 +98,8 @@ last_file_on_local_folder <-
 
 df <- 
   read_xlsx(path = last_file_on_local_folder) %>% 
-  rename_all(str_to_lower)
+  rename_all(str_to_lower) %>% 
+  clean_names()
 
 clean_coord <- function(coord){
   

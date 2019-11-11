@@ -30,4 +30,5 @@ Imports:
     lubridate,
     widgetframe,
     udunits2,
-    shiny
+    shiny,
+    janitor

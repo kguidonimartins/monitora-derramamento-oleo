@@ -24,5 +24,6 @@ r_packages:
   - lubridate
   - widgetframe
   - udunits2
+  - janitor
 os:
   - linux

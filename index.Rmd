@@ -59,6 +59,7 @@ ipak(
 )
 
 theme_set(theme_light(base_size = 14))
+
 render_table <- function(data){
   datatable(
   data,
@@ -95,8 +96,8 @@ last_file_on_local_folder <-
 
 df <- read_csv(last_file_on_local_folder) %>% 
   rename(
-    Localidade = name,
-    `Município` = `município`,
+    Localidade = localidade,
+    `Município` = municipio,
     Estado = estado,
     Status = status
   ) %>% 
