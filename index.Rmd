@@ -71,7 +71,7 @@ render_table <- function(data){
       list(
         className = 'dt-center', 
         targets = 5)),
-     pageLength = 5, lengthMenu = c(5, 10, 15, 20)),
+     pageLength = 10, lengthMenu = c(5, 10, 15, 20)),
   class = 'cell-border stripe',
   fillContainer = TRUE
 ) %>% 
@@ -188,8 +188,18 @@ df %>%
 Clique nos círculos para ter acesso às informações da localidade.
 
 ```{r, eval = TRUE}
-pal <- colorFactor(palette = c("black", "grey", "green"), domain = df$Status)
-extensao <- raster::extent(sp::SpatialPoints(df[, c("longitude", "latitude")]))
+pal <- 
+  colorFactor(
+    palette = c("black", "grey", "green"), 
+    domain = df$Status
+    )
+
+extensao <- 
+  raster::extent(
+    sp::SpatialPoints(
+      df[, c("longitude", "latitude")]
+      )
+    )
 
 mapa_oleo <- leaflet(df, width="100%") %>%
   addTiles() %>%
@@ -198,7 +208,15 @@ mapa_oleo <- leaflet(df, width="100%") %>%
       lat = ~ latitude,
       popup = ~popupTable(
         x = df, 
-        zcol = c("Localidade", "Município", "Estado", "Status", "data_avist", "data_revis", "intervalo entre visitas (dias)"), 
+        zcol = c(
+          "Localidade",
+          "Município",
+          "Estado",
+          "Status",
+          "data_avist",
+          "data_revis",
+          "intervalo entre visitas (dias)"
+        ), 
         row.numbers = FALSE, 
         feature.id = FALSE
         ),
@@ -207,7 +225,12 @@ mapa_oleo <- leaflet(df, width="100%") %>%
       fillOpacity = 0.7,
       color = ~pal(Status)
       ) %>% 
-  addLegend(position = "bottomright", pal = pal, values = ~Status, opacity = 1) %>% 
+  addLegend(
+    position = "bottomright",
+    pal = pal,
+    values = ~ Status,
+    opacity = 1
+  ) %>%  
   addMouseCoordinates() %>% 
   addMiniMap(position = "bottomleft") %>% 
   addHomeButton(ext = extensao, layer.name = "Visão geral")
