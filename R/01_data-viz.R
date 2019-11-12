@@ -1,10 +1,10 @@
 # ipak function: install and load multiple R packages.
-# Check to see if packages are installed. 
+# Check to see if packages are installed.
 # Install them if they are not, then load them into the R session.
 # Forked from: https://gist.github.com/stevenworthington/3178163
 ipak <- function(pkg) {
   new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
-  if (length(new.pkg)){
+  if (length(new.pkg)) {
     install.packages(new.pkg, dependencies = TRUE)
   }
   suppressPackageStartupMessages(sapply(pkg, require, character.only = TRUE))
@@ -21,11 +21,11 @@ theme_set(theme_light(base_size = 14))
 ############################################################
 
 last_file_on_local_folder <-
-  dir_info(here("data-clean")) %>% 
-  mutate(file_type = file_ext(path)) %>% 
-  arrange(desc(birth_time)) %>% 
-  filter(file_type == "csv") %>% 
-  slice(1) %>% 
+  dir_info(here("data-clean")) %>%
+  mutate(file_type = file_ext(path)) %>%
+  arrange(desc(birth_time)) %>%
+  filter(file_type == "csv") %>%
+  slice(1) %>%
   pull(path)
 
 df <- read_csv(last_file_on_local_folder)
@@ -36,21 +36,21 @@ df <- read_csv(last_file_on_local_folder)
 #                                                          #
 ############################################################
 
-df %>% 
-  group_by(estado, status) %>% 
-  count() %>% 
-  ungroup() %>% 
-  mutate(estado = fct_reorder(estado, n)) %>% 
+df %>%
+  group_by(estado, status) %>%
+  count() %>%
+  ungroup() %>%
+  mutate(estado = fct_reorder(estado, n)) %>%
   ggplot(aes(x = estado, y = n)) +
   geom_col() +
   coord_flip() +
   labs(
     x = "",
     y = "Número de registros",
-    title = "Registros por Estado", 
+    title = "Registros por Estado",
     caption = "Fonte: http://www.ibama.gov.br/manchasdeoleo-localidades-atingidas"
-  ) + 
-  facet_wrap( ~status)
+  ) +
+  facet_wrap(~status)
 
 ############################################################
 #                                                          #
@@ -59,19 +59,19 @@ df %>%
 ############################################################
 
 shape_brasil <- borders(
-  database = "world", 
+  database = "world",
   regions = "Brazil",
-  fill = "white", 
-  colour = "grey90" 
+  fill = "white",
+  colour = "grey90"
 )
 
-mapa_oleo <- 
+mapa_oleo <-
   df %>%
-  ggplot() + 
-  shape_brasil + 
-  theme_bw() + 
+  ggplot() +
+  shape_brasil +
+  theme_bw() +
   labs(
-    x = "Longitude", 
+    x = "Longitude",
     y = "Latitude"
   ) +
   theme(
@@ -82,20 +82,20 @@ mapa_oleo <-
   coord_map() +
   geom_point(
     aes(
-      x = longitude, 
+      x = longitude,
       y = latitude,
       colour = status
-    ), 
-    alpha = 0.5, 
+    ),
+    alpha = 0.5,
     size = 3
-  ) 
+  )
 
 # mapa estático
 mapa_oleo
 
 # mapa estático por estado
 mapa_facet <- mapa_oleo +
-  facet_wrap( ~estado)
+  facet_wrap(~estado)
 
 mapa_facet
 ############################################################
