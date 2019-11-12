@@ -1,5 +1,5 @@
 ---
-title: "Última atualização: `r format(Sys.time(), '%d de %B de %Y às %X')`"
+title: "Última atualização: `r format(lubridate::with_tz(time = Sys.time(), tzone = 'America/Sao_Paulo'), '%d de %B de %Y às %X')`"
 output: 
   html_document:
     toc: true
