@@ -1,0 +1,36 @@
+language: r
+sudo: false
+before_install: sudo apt-get -y install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev libgdal-dev bwidget libgdal-dev libgdal1-dev libgeos-dev libgeos++-dev libgsl0-dev libproj-dev libspatialite-dev netcdf-bin libgmp3-dev libudunits2-dev
+script: make all
+cache: packages
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master
+r_packages:
+  - tidyverse
+  - tidylog
+  - readxl
+  - here
+  - biogeo
+  - plotly
+  - fs
+  - tools
+  - rvest
+  - rmarkdown
+  - DT
+  - sf
+  - leaflet
+  - mapview
+  - leafem
+  - leafpop
+  - raster
+  - lubridate
+  - widgetframe
+  - udunits2
+  - janitor
+os:
+  - linux

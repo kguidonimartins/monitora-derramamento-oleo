@@ -1,0 +1,11 @@
+name: "my-website"
+output_dir: '.'
+navbar:
+  title: "Monitoramento das manchas de óleo nas praias brasileiras"
+  href: index.html
+output:
+  html_document:
+    theme: cosmo
+    css: styles.css
+    lib_dir: site_libs
+    self_contained: no
