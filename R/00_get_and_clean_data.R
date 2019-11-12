@@ -31,14 +31,11 @@ ipak(
   )
 )
 
-
-
 ############################################################
 #                                                          #
 #                    download dos dados                    #
 #                                                          #
 ############################################################
-
 
 get_data <- function(dest_folder){
   if (!dir.exists(dest_folder)){
@@ -164,7 +161,8 @@ df_clean <-
     latitude = as.numeric(latitude),
     longitude = as.numeric(longitude)
     ) %>% 
-  dplyr::select(-starts_with("lat_"), -starts_with("long_")) 
+  dplyr::select(-starts_with("lat_"), -starts_with("long_")) %>% 
+  distinct(latitude, longitude, .keep_all = TRUE)
 )
 
 file_to_save <- 
