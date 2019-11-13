@@ -114,7 +114,13 @@ last_file_on_local_folder <-
   slice(1) %>%
   pull(path)
 
-df <- read_csv(last_file_on_local_folder) %>%
+df <- read_csv(last_file_on_local_folder) %>% 
+  {
+    if ("name" %in% names(.))
+      rename(., localidade = name)
+    else
+      .
+  } %>% 
   rename(
     Localidade = localidade,
     `Município` = municipio,
