@@ -211,7 +211,6 @@ df %>%
 <b>Dica:</b> Clique nos círculos para ter acesso às informações da localidade.
 </div>
 
-<\br>
 
 ```{r, eval = TRUE}
 pal <-
