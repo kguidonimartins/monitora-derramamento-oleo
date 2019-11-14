@@ -10,12 +10,26 @@ Veja o relatório online [aqui](https://kguidonimartins.github.io/monitora-derra
 
 Para reproduzir este relatório você precisará de instalar os programas [R](https://www.r-project.org/) e [RStudio](https://rstudio.com/).
 
-Clone este repositório, abra o arquivo `monitora-derramamento-oleo.Rproj` e execute o arquivo `run_all.R`.
+### Usando o terminal
 
 Pelo terminal, você pode executar:
 
 ```bash
 git clone https://github.com/kguidonimartins/scrape_derramamento_de_oleo_br.git
 cd monitora-derramamento-oleo_br
-Rscript run_all.R
+Rscript --no-init-file run_all.R
 ```
+
+### Usando o RStudio
+
+Para reproduzir este relatório pelo RStudio, você precisará seguir os seguintes passos:
+
+1. Clone este repositório;
+
+2. Acesse a pasta `monitora-derramamento-oleo`;
+
+3. Delete o arquivo `.Rprofile` (ele pode estar oculto em sua pasta);
+
+4. Abra o arquivo `monitora-derramamento-oleo.Rproj`;
+
+5. Execute o arquivo `run_all.R`.
