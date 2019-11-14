@@ -17,7 +17,7 @@ Pelo terminal, você pode executar:
 ```bash
 git clone https://github.com/kguidonimartins/scrape_derramamento_de_oleo_br.git
 cd monitora-derramamento-oleo_br
-Rscript --no-init-file run_all.R
+Rscript run_all.R
 ```
 
 ### Usando o RStudio
@@ -28,8 +28,6 @@ Para reproduzir este relatório pelo RStudio, você precisará seguir os seguint
 
 2. Acesse a pasta `monitora-derramamento-oleo`;
 
-3. Delete o arquivo `.Rprofile` (ele pode estar oculto em sua pasta);
+3. Abra o arquivo `monitora-derramamento-oleo.Rproj`;
 
-4. Abra o arquivo `monitora-derramamento-oleo.Rproj`;
-
-5. Execute o arquivo `run_all.R`.
+4. Execute o arquivo `run_all.R`.
