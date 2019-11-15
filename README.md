@@ -15,8 +15,8 @@ Para reproduzir este relatório você precisará de instalar os programas [R](ht
 Pelo terminal, você pode executar:
 
 ```bash
-git clone https://github.com/kguidonimartins/scrape_derramamento_de_oleo_br.git
-cd monitora-derramamento-oleo_br
+git clone https://github.com/kguidonimartins/monitora-derramamento-oleo.git
+cd monitora-derramamento-oleo
 Rscript run_all.R
 ```
 
