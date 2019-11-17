@@ -31,4 +31,5 @@ Imports:
     widgetframe,
     udunits2,
     shiny,
-    janitor
+    janitor,
+    leaflet.extras
