@@ -33,7 +33,7 @@ ipak(
 
 source(here::here("R", "get_data.R"))
 source(here::here("R", "last_file_on_local_folder.R"))
-
+source(here::here("R", "remove_special_char_from_coord.R"))
 ############################################################
 #                                                          #
 #                    download dos dados                    #
@@ -59,24 +59,12 @@ df <-
   rename_all(str_to_lower) %>%
   clean_names()
 
-clean_coord <- function(coord) {
-  if (grepl(pattern = "[A-Z]", x = coord)) {
-    coord <- iconv(coord, "utf-8", "ascii", sub = "") %>% {
-      gsub(pattern = "(')|(\")", replacement = "", x = .)
-    }
-  } else {
-    coord <- coord
-  }
-
-  return(coord)
-}
-
 df_clean <-
   suppressWarnings(
     df %>%
       mutate(
-        latitude = clean_coord(latitude),
-        longitude = clean_coord(longitude)
+        latitude = remove_special_char_from_coord(latitude),
+        longitude = remove_special_char_from_coord(longitude)
       ) %>%
       separate(
         col = latitude,
