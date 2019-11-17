@@ -31,51 +31,14 @@ ipak(
   )
 )
 
+source(here::here("R", "get_data.R"))
+source(here::here("R", "last_file_on_local_folder.R"))
+source(here::here("R", "remove_special_char_from_coord.R"))
 ############################################################
 #                                                          #
 #                    download dos dados                    #
 #                                                          #
 ############################################################
-
-get_data <- function(dest_folder) {
-  if (!dir.exists(dest_folder)) {
-    dir.create(dest_folder)
-  }
-
-  url_for_link <- "http://www.ibama.gov.br/manchasdeoleo-localidades-atingidas"
-
-  url_for_download <- "http://www.ibama.gov.br"
-
-  files <-
-    url_for_link %>%
-    read_html() %>%
-    html_nodes("td:nth-child(2) a") %>%
-    html_attr("href") %>%
-    tibble() %>%
-    set_names("link") %>%
-    mutate(
-      file = basename(link),
-      file_type = file_ext(file)
-    ) %>%
-    filter(file_type == "xlsx")
-
-  last_file_on_web <- files %>%
-    slice(1) %>%
-    pull(file)
-
-  link_for_the_last_file <- files %>%
-    slice(1) %>%
-    pull(link) %>%
-    paste0(url_for_download, .)
-
-  dest_and_name <- paste0(dest_folder, "/", last_file_on_web)
-
-  if (!file.exists(dest_and_name)) {
-    download.file(url = link_for_the_last_file, destfile = dest_and_name)
-  } else {
-    message("Arquivo ", dest_and_name, " já existe")
-  }
-}
 
 get_data(dest_folder = "data-raw")
 
@@ -85,37 +48,23 @@ get_data(dest_folder = "data-raw")
 #                                                          #
 ############################################################
 
-last_file_on_local_folder <-
-  dir_info(here::here("data-raw")) %>%
-  mutate(file_type = file_ext(path)) %>%
-  arrange(desc(birth_time)) %>%
-  filter(file_type == "xlsx") %>%
-  slice(1) %>%
-  pull(path)
+last_file <- 
+  last_file_on_local_folder(
+    source_folder = "data-raw", 
+    file_type = "xlsx"
+    )
 
 df <-
-  read_xlsx(path = last_file_on_local_folder) %>%
+  read_xlsx(path = last_file) %>%
   rename_all(str_to_lower) %>%
   clean_names()
-
-clean_coord <- function(coord) {
-  if (grepl(pattern = "[A-Z]", x = coord)) {
-    coord <- iconv(coord, "utf-8", "ascii", sub = "") %>% {
-      gsub(pattern = "(')|(\")", replacement = "", x = .)
-    }
-  } else {
-    coord <- coord
-  }
-
-  return(coord)
-}
 
 df_clean <-
   suppressWarnings(
     df %>%
       mutate(
-        latitude = clean_coord(latitude),
-        longitude = clean_coord(longitude)
+        latitude = remove_special_char_from_coord(latitude),
+        longitude = remove_special_char_from_coord(longitude)
       ) %>%
       separate(
         col = latitude,
@@ -165,7 +114,7 @@ df_clean <-
   )
 
 file_to_save <-
-  last_file_on_local_folder %>%
+  last_file %>%
   basename() %>%
   gsub(".xlsx", "", .) %>%
   paste0(., ".csv") %>%

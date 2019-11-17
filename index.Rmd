@@ -72,33 +72,15 @@ ipak(
     "raster",
     "lubridate",
     "widgetframe",
-    "shiny"
+    "shiny",
+    "leaflet.extras"
   )
 )
 
 theme_set(theme_light(base_size = 14))
 
-render_table <- function(data) {
-  datatable(
-    data,
-    rownames = TRUE,
-    filter = "top",
-    options = list(
-      pageLength = 10,
-      scrollX = TRUE,
-      columnDefs = list(
-        list(
-          className = "dt-center",
-          targets = 5
-        )
-      ),
-      pageLength = 10, lengthMenu = c(5, 10, 15, 20)
-    ),
-    class = "cell-border stripe",
-    fillContainer = TRUE
-  ) %>%
-    frameWidget(height = 450, width = "100%")
-}
+source(here::here("R", "render_table.R"))
+source(here::here("R", "last_file_on_local_folder.R"))
 ```
 
 ***
@@ -106,15 +88,14 @@ render_table <- function(data) {
 # Localidades monitoradas
 
 ```{r, eval = TRUE, message = FALSE}
-last_file_on_local_folder <-
-  dir_info(here::here("data-clean")) %>%
-  mutate(file_type = file_ext(path)) %>%
-  arrange(desc(birth_time)) %>%
-  filter(file_type == "csv") %>%
-  slice(1) %>%
-  pull(path)
 
-df <- read_csv(last_file_on_local_folder) %>% 
+last_file <- 
+  last_file_on_local_folder(
+    source_folder = here::here("data-clean"), 
+    file_type = "csv"
+    )
+
+df <- read_csv(last_file) %>% 
   {
     if ("name" %in% names(.))
       rename(., localidade = name)
@@ -225,12 +206,12 @@ pal <-
     domain = df$Status
   )
 
-extensao <-
-  raster::extent(
-    sp::SpatialPoints(
-      df[, c("longitude", "latitude")]
-    )
-  )
+# extensao <-
+#   raster::extent(
+#     sp::SpatialPoints(
+#       df[, c("longitude", "latitude")]
+#     )
+#   )
 
 mapa_oleo <- leaflet(df, width = "100%") %>%
   addTiles() %>%
@@ -254,7 +235,9 @@ mapa_oleo <- leaflet(df, width = "100%") %>%
     stroke = FALSE,
     radius = 10,
     fillOpacity = 0.7,
-    color = ~ pal(Status)
+    color = ~ pal(Status), 
+    label = ~ Localidade, 
+    group = "df"
   ) %>%
   addLegend(
     position = "bottomright",
@@ -264,7 +247,18 @@ mapa_oleo <- leaflet(df, width = "100%") %>%
   ) %>%
   addMouseCoordinates() %>%
   addMiniMap(position = "bottomleft") %>%
-  addHomeButton(ext = extensao, layer.name = "Visão geral")
+  addResetMapButton()  
+  # addSearchFeatures(
+  #   targetGroups =  "df",
+  #   options = searchFeaturesOptions(
+  #     zoom=12,
+  #     openPopup = TRUE,
+  #     firstTipSubmit = TRUE,
+  #     autoCollapse = TRUE,
+  #     hideMarkerOnCollapse = TRUE
+  #     )
+  #   )
+  # addHomeButton(ext = extensao, layer.name = "Visão geral")
 
 mapa_oleo
 ```
