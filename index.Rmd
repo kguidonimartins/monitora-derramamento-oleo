@@ -72,7 +72,8 @@ ipak(
     "raster",
     "lubridate",
     "widgetframe",
-    "shiny"
+    "shiny",
+    "leaflet.extras"
   )
 )
 
@@ -225,12 +226,12 @@ pal <-
     domain = df$Status
   )
 
-extensao <-
-  raster::extent(
-    sp::SpatialPoints(
-      df[, c("longitude", "latitude")]
-    )
-  )
+# extensao <-
+#   raster::extent(
+#     sp::SpatialPoints(
+#       df[, c("longitude", "latitude")]
+#     )
+#   )
 
 mapa_oleo <- leaflet(df, width = "100%") %>%
   addTiles() %>%
@@ -266,7 +267,18 @@ mapa_oleo <- leaflet(df, width = "100%") %>%
   ) %>%
   addMouseCoordinates() %>%
   addMiniMap(position = "bottomleft") %>%
-  addHomeButton(ext = extensao, layer.name = "Visão geral")
+  addResetMapButton()  
+  # addSearchFeatures(
+  #   targetGroups =  "df",
+  #   options = searchFeaturesOptions(
+  #     zoom=12,
+  #     openPopup = TRUE,
+  #     firstTipSubmit = TRUE,
+  #     autoCollapse = TRUE,
+  #     hideMarkerOnCollapse = TRUE
+  #     )
+  #   )
+  # addHomeButton(ext = extensao, layer.name = "Visão geral")
 
 mapa_oleo
 ```
