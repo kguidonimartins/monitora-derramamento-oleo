@@ -254,7 +254,9 @@ mapa_oleo <- leaflet(df, width = "100%") %>%
     stroke = FALSE,
     radius = 10,
     fillOpacity = 0.7,
-    color = ~ pal(Status)
+    color = ~ pal(Status), 
+    label = ~ Localidade, 
+    group = "df"
   ) %>%
   addLegend(
     position = "bottomright",
