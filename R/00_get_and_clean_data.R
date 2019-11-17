@@ -48,14 +48,6 @@ get_data(dest_folder = "data-raw")
 #                                                          #
 ############################################################
 
-# last_file_on_local_folder <-
-#   dir_info(here::here("data-raw")) %>%
-#   mutate(file_type = file_ext(path)) %>%
-#   arrange(desc(birth_time)) %>%
-#   filter(file_type == "xlsx") %>%
-#   slice(1) %>%
-#   pull(path)
-
 last_file <- 
   last_file_on_local_folder(
     source_folder = "data-raw", 
