@@ -32,6 +32,7 @@ ipak(
 )
 
 source(here::here("R", "get_data.R"))
+source(here::here("R", "last_file_on_local_folder.R"))
 
 ############################################################
 #                                                          #
@@ -47,16 +48,22 @@ get_data(dest_folder = "data-raw")
 #                                                          #
 ############################################################
 
-last_file_on_local_folder <-
-  dir_info(here::here("data-raw")) %>%
-  mutate(file_type = file_ext(path)) %>%
-  arrange(desc(birth_time)) %>%
-  filter(file_type == "xlsx") %>%
-  slice(1) %>%
-  pull(path)
+# last_file_on_local_folder <-
+#   dir_info(here::here("data-raw")) %>%
+#   mutate(file_type = file_ext(path)) %>%
+#   arrange(desc(birth_time)) %>%
+#   filter(file_type == "xlsx") %>%
+#   slice(1) %>%
+#   pull(path)
+
+last_file <- 
+  last_file_on_local_folder(
+    source_folder = "data-raw", 
+    file_type = "xlsx"
+    )
 
 df <-
-  read_xlsx(path = last_file_on_local_folder) %>%
+  read_xlsx(path = last_file) %>%
   rename_all(str_to_lower) %>%
   clean_names()
 
@@ -127,7 +134,7 @@ df_clean <-
   )
 
 file_to_save <-
-  last_file_on_local_folder %>%
+  last_file %>%
   basename() %>%
   gsub(".xlsx", "", .) %>%
   paste0(., ".csv") %>%

@@ -80,6 +80,7 @@ ipak(
 theme_set(theme_light(base_size = 14))
 
 source(here::here("R", "render_table.R"))
+source(here::here("R", "last_file_on_local_folder.R"))
 ```
 
 ***
@@ -87,15 +88,21 @@ source(here::here("R", "render_table.R"))
 # Localidades monitoradas
 
 ```{r, eval = TRUE, message = FALSE}
-last_file_on_local_folder <-
-  dir_info(here::here("data-clean")) %>%
-  mutate(file_type = file_ext(path)) %>%
-  arrange(desc(birth_time)) %>%
-  filter(file_type == "csv") %>%
-  slice(1) %>%
-  pull(path)
+# last_file_on_local_folder <-
+#   dir_info(here::here("data-clean")) %>%
+#   mutate(file_type = file_ext(path)) %>%
+#   arrange(desc(birth_time)) %>%
+#   filter(file_type == "csv") %>%
+#   slice(1) %>%
+#   pull(path)
 
-df <- read_csv(last_file_on_local_folder) %>% 
+last_file <- 
+  last_file_on_local_folder(
+    source_folder = here::here("data-clean"), 
+    file_type = "csv"
+    )
+
+df <- read_csv(last_file) %>% 
   {
     if ("name" %in% names(.))
       rename(., localidade = name)
