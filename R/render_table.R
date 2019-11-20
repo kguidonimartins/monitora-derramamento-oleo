@@ -13,17 +13,16 @@ render_table <- function(data) {
     filter = "top",
     options = list(
       pageLength = 10,
-      scrollX = TRUE,
+      scrollX = FALSE, 
       columnDefs = list(
         list(
           className = "dt-center",
           targets = 5
         )
-      ),
-      pageLength = 10, lengthMenu = c(5, 10, 15, 20)
+      )
     ),
     class = "cell-border stripe",
     fillContainer = TRUE
   ) %>%
-    frameWidget(height = 450, width = "100%")
+    frameWidget(height = 770, width = "100%")
 }
