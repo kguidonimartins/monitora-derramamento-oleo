@@ -31,7 +31,6 @@ r_packages:
   - tidylog
   - readxl
   - here
-  - biogeo
   - plotly
   - fs
   - tools

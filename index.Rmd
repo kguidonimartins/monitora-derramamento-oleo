@@ -69,7 +69,7 @@ ipak(
     "mapview",
     "leafem",
     "leafpop",
-    "raster",
+    # "raster",
     "lubridate",
     "widgetframe",
     "shiny",
