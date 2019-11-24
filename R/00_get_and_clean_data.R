@@ -22,7 +22,6 @@ ipak(
     "tidylog",
     "readxl",
     "here",
-    "biogeo",
     "plotly",
     "fs",
     "tools",
@@ -33,7 +32,7 @@ ipak(
 
 source(here::here("R", "get_data.R"))
 source(here::here("R", "last_file_on_local_folder.R"))
-source(here::here("R", "remove_special_char_from_coord.R"))
+source(here::here("R", "from_dms_to_dd.R"))
 ############################################################
 #                                                          #
 #                    download dos dados                    #
@@ -59,59 +58,82 @@ df <-
   rename_all(str_to_lower) %>%
   clean_names()
 
-df_clean <-
-  suppressWarnings(
-    df %>%
-      mutate(
-        latitude = remove_special_char_from_coord(latitude),
-        longitude = remove_special_char_from_coord(longitude)
-      ) %>%
-      separate(
-        col = latitude,
-        into = c("lat_graus", "lat_minutos", "lat_segundos", "lat_letra"),
-        sep = " ",
-        remove = FALSE,
-        convert = TRUE,
-        extra = "drop"
-      ) %>%
-      separate(
-        col = longitude,
-        into = c("long_graus", "long_minutos", "long_segundos", "long_letra"),
-        sep = " ",
-        remove = FALSE,
-        convert = TRUE,
-        extra = "drop"
-      ) %>%
-      mutate(
-        latitude = if_else(
-          condition = is.na(lat_letra),
-          true = latitude,
-          false = as.character(
-            dms2dd(
-              dd = lat_graus,
-              mm = lat_minutos,
-              ss = lat_segundos,
-              ns = lat_letra
-            )
-          )
-        ),
-        longitude = if_else(
-          condition = is.na(long_letra),
-          true = longitude, false = as.character(
-            dms2dd(
-              dd = long_graus,
-              mm = long_minutos,
-              ss = long_segundos,
-              ns = long_letra
-            )
-          )
-        ),
-        latitude = as.numeric(latitude),
-        longitude = as.numeric(longitude)
-      ) %>%
-      dplyr::select(-starts_with("lat_"), -starts_with("long_")) %>%
-      distinct(latitude, longitude, .keep_all = TRUE)
-  )
+############################################################
+#                                                          #
+#           limpando e transformando coordenadas           #
+#                                                          #
+############################################################
+
+latitude_raw <- str_extract_all(df$latitude, "\\(?[0-9, ., A-Z]+\\)?") 
+
+latitude_separated <- 
+  data.frame(
+    matrix(
+      unlist(latitude_raw), 
+      nrow = length(latitude_raw), 
+      byrow = TRUE), stringsAsFactors = FALSE
+  ) %>% 
+  mutate_all(str_squish) %>% 
+  set_names(c("lat_graus", "lat_minutos", "lat_segundos", "lat_letra")) %>% 
+  mutate_at(vars("lat_graus", "lat_minutos", "lat_segundos"), as.numeric)
+
+suppressWarnings(
+latitude_clean <- latitude_separated %>%  
+  mutate(
+    latitude = from_dms_to_dd(
+      lat_graus,
+      lat_minutos,
+      lat_segundos,
+      lat_letra
+    )
+  ) %>% 
+  select(latitude)
+)
+
+longitude_raw <- str_extract_all(df$longitude, "\\(?[0-9, ., A-Z]+\\)?") 
+
+longitude_separated <- 
+  data.frame(
+    matrix(
+      unlist(longitude_raw), 
+      nrow = length(longitude_raw), 
+      byrow = TRUE), stringsAsFactors = FALSE
+  ) %>% 
+  mutate_all(str_squish) %>% 
+  set_names(c("long_graus", "long_minutos", "long_segundos", "long_letra")) %>% 
+  mutate_at(vars("long_graus", "long_minutos", "long_segundos"), as.numeric)
+
+suppressWarnings(
+longitude_clean <- 
+  longitude_separated %>% 
+  mutate(
+    longitude = from_dms_to_dd(
+      long_graus,
+      long_minutos,
+      long_segundos,
+      long_letra
+    )
+  ) %>% 
+  select(longitude)
+)
+
+############################################################
+#                                                          #
+#           substituindo coordenadas corrigidas            #
+#                                                          #
+############################################################
+
+df_clean <- 
+  df %>% 
+  select(-latitude, -longitude) %>% 
+  bind_cols(latitude_clean, longitude_clean) 
+
+
+############################################################
+#                                                          #
+#                     salvando arquivo                     #
+#                                                          #
+############################################################
 
 file_to_save <-
   last_file %>%
@@ -126,3 +148,4 @@ if (!file.exists(file_to_save)) {
 } else {
   message("Arquivo ", file_to_save, " já existe")
 }
+
