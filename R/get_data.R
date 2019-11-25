@@ -16,17 +16,20 @@ get_data <- function(dest_folder) {
   url_for_download <- "http://www.ibama.gov.br"
   
   files <-
-    url_for_link %>%
-    read_html() %>%
-    html_nodes("td:nth-child(2) a") %>%
-    html_attr("href") %>%
-    tibble() %>%
-    set_names("link") %>%
+    url_for_link %>% 
+    read_html() %>% 
+    html_nodes("table") %>% 
+    html_nodes("a") %>% 
+    html_attr("href") %>% 
+    tibble() %>% 
+    set_names("link") %>% 
     mutate(
       file = basename(link),
       file_type = file_ext(file)
-    ) %>%
-    filter(file_type == "xlsx")
+    ) %>% 
+    filter(file_type == "xlsx") %>% 
+    mutate(data = str_extract(string = file, pattern = "[0-9-]{8,}")) %>% 
+    arrange(desc(data))
   
   last_file_on_web <- files %>%
     slice(1) %>%
