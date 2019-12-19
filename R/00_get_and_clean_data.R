@@ -135,6 +135,8 @@ df_clean <-
 #                                                          #
 ############################################################
 
+fs::dir_create(here::here("data-clean"))
+
 file_to_save <-
   last_file %>%
   basename() %>%
