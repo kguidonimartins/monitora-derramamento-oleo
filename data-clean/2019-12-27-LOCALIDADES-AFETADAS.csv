@@ -675,9 +675,9 @@ geocodigo,localidade,loc_id,municipio,estado,sigla_uf,data_avist,data_revis,stat
 2913606,Praia de Mamoã,2913606_25,Ilhéus,Bahia,BA,2019-11-04,2019-11-12,Oleada - Vestigios / Esparsos,NA,1,-14.568210555555556,-39.04826944444444
 3204906,Praia de Urussuquara,3204906_8,São Mateus,Espírito Santo,ES,2019-11-11,2019-12-15,Oleada - Vestigios / Esparsos,NA,1,-19.05520277777778,-39.725461111111116
 2100907,Ilha dos Poldros,2100907_21,Araioses,Maranhão,MA,2019-12-04,2019-12-14,Oleo Nao Observado,NA,1,-2.7264777777777778,-41.82843888888889
-2207702,Praia do Pontal,2207702_2,Parnaíba,Piauí,PI,2019-10-29,2019-12-13,Oleo Nao Observado,NA,1,-2.7708305555555555,-41.776852777777776
+2207702,Praia do Pontal,2207702_2,Ilha Grande,Piauí,PI,2019-10-29,2019-12-13,Oleo Nao Observado,NA,1,-2.7708305555555555,-41.776852777777776
 2913606,São Domingos,2913606_26,Ilhéus,Bahia,BA,2019-11-03,2019-11-04,Oleo Nao Observado,NA,1,-14.711652777777777,-39.06534444444444
-2207702,Praia do Pontal,2207702_3,Parnaíba,Piauí,PI,2019-11-20,2019-11-22,Oleada - Vestigios / Esparsos,NA,1,-2.7549694444444444,-41.78628055555556
+2207702,Praia do Pontal,2207702_3,Ilha Grande,Piauí,PI,2019-11-20,2019-11-22,Oleada - Vestigios / Esparsos,NA,1,-2.7549694444444444,-41.78628055555556
 3204906,Praia de Guriri,3204906_9,São Mateus,Espírito Santo,ES,2019-11-14,2019-11-16,Oleada - Vestigios / Esparsos,NA,1,-18.713461111111112,-39.747191666666666
 2913606,Praia de Lençóis,2913606_27,Ilhéus,Bahia,BA,2019-11-03,2019-12-08,Oleo Nao Observado,NA,1,-15.068712777777778,-38.997058333333335
 3204906,Praia da Barra Nova,3204906_2,São Mateus,Espírito Santo,ES,2019-11-11,2019-11-11,Oleada - Vestigios / Esparsos,NA,1,-18.854933333333335,-39.749497222222224
@@ -686,16 +686,16 @@ geocodigo,localidade,loc_id,municipio,estado,sigla_uf,data_avist,data_revis,stat
 3204906,Praia da Barra Nova,3204906_3,São Mateus,Espírito Santo,ES,2019-11-21,2019-11-23,Oleada - Vestigios / Esparsos,NA,1,-18.862397222222224,-39.74877222222222
 3204906,Praia da Barra Nova,3204906_4,São Mateus,Espírito Santo,ES,2019-11-23,2019-11-25,Oleada - Vestigios / Esparsos,NA,1,-18.871697222222224,-39.74778055555556
 3204906,Praia da Barra Nova,3204906_5,São Mateus,Espírito Santo,ES,2019-11-18,2019-11-24,Oleada - Vestigios / Esparsos,NA,1,-18.88150277777778,-39.74639166666667
-2207702,Praia do Pontal,2207702_8,Parnaíba,Piauí,PI,2019-12-14,2019-12-18,Oleo Nao Observado,NA,1,-2.7989055555555553,-41.75468055555555
-2207702,Praia do Pontal,2207702_9,Parnaíba,Piauí,PI,2019-11-27,2019-11-27,Oleada - Vestigios / Esparsos,NA,1,-2.803730555555555,-41.74747222222222
+2207702,Praia do Pontal,2207702_8,Ilha Grande,Piauí,PI,2019-12-14,2019-12-18,Oleo Nao Observado,NA,1,-2.7989055555555553,-41.75468055555555
+2207702,Praia do Pontal,2207702_9,Ilha Grande,Piauí,PI,2019-11-27,2019-11-27,Oleada - Vestigios / Esparsos,NA,1,-2.803730555555555,-41.74747222222222
 2700607,Barra de São Miguel,2700607_6,Barra de São Miguel,Alagoas,AL,2019-12-05,2019-12-06,Oleada - Vestigios / Esparsos,NA,1,-9.832580555555555,-35.88375416666667
 2700607,Porto de Vacas,2700607_7,Barra de São Miguel,Alagoas,AL,2019-11-26,2019-12-13,Oleada - Vestigios / Esparsos,NA,1,-9.840311111111111,-35.88955
 2609600,Praia de Dell Chifre,2609600_1,Olinda,Pernambuco,PE,2019-09-02,2019-10-27,Oleo Nao Observado,NA,1,-8.027627777777779,-34.857958333333336
 2100907,Ilha dos Poldros,2100907_23,Araioses,Maranhão,MA,2019-09-16,2019-12-14,Oleo Nao Observado,NA,1,-2.723138888888889,-41.85512222222222
-2207702,Praia do Pontal,2207702_4,Parnaíba,Piauí,PI,2019-11-08,2019-11-17,Oleada - Vestigios / Esparsos,NA,1,-2.762938888888889,-41.781675
+2207702,Praia do Pontal,2207702_4,Ilha Grande,Piauí,PI,2019-11-08,2019-11-17,Oleada - Vestigios / Esparsos,NA,1,-2.762938888888889,-41.781675
 2100907,Ilha dos Poldros,2100907_24,Araioses,Maranhão,MA,2019-09-20,2019-11-10,Oleo Nao Observado,NA,1,-2.7381722222222225,-41.79526388888889
-2207702,Praia do Pontal,2207702_6,Parnaíba,Piauí,PI,2019-12-17,2019-12-17,Oleada - Vestigios / Esparsos,NA,1,-2.786136111111111,-41.766555555555556
-2207702,Praia do Pontal,2207702_7,Parnaíba,Piauí,PI,2019-11-26,2019-11-26,Oleada - Vestigios / Esparsos,NA,1,-2.7929222222222223,-41.763
+2207702,Praia do Pontal,2207702_6,Ilha Grande,Piauí,PI,2019-12-17,2019-12-17,Oleada - Vestigios / Esparsos,NA,1,-2.786136111111111,-41.766555555555556
+2207702,Praia do Pontal,2207702_7,Ilha Grande,Piauí,PI,2019-11-26,2019-11-26,Oleada - Vestigios / Esparsos,NA,1,-2.7929222222222223,-41.763
 2913606,Praia da Avenida,2913606_32,Ilhéus,Bahia,BA,2019-10-29,2019-11-13,Oleada - Vestigios / Esparsos,NA,1,-14.792508333333334,-39.02889722222222
 2413201,Praia de Malembá,2413201_3,Senador Georgino Avelino,Rio Grande do Norte,RN,2019-11-13,2019-11-14,Oleo Nao Observado,NA,1,-6.1514058333333335,-35.09846666666667
 2913606,Praia Jóia do Atlântico,2913606_33,Ilhéus,Bahia,BA,2019-10-31,NA,Oleada - Vestigios / Esparsos,NA,1,-14.63928611111111,-39.065172222222216
