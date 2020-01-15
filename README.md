@@ -31,3 +31,13 @@ Para reproduzir este relatório pelo RStudio, você precisará seguir os seguint
 3. Abra o arquivo `monitora-derramamento-oleo.Rproj`;
 
 4. Execute o arquivo `run_all.R`.
+
+### Divulgação
+
+- [Estudante da UFG cria site que monitora mancha de óleo nas praias brasileiras](https://www.emaisgoias.com.br/estudante-da-ufg-cria-site-que-monitora-mancha-de-oleo-nas-praias-brasileiras/)
+
+- [Pesquisador da UFG cria site capaz de monitorar manchas de óleo no litoral brasileiro](https://www.opopular.com.br/noticias/cidades/pesquisador-da-ufg-cria-site-capaz-de-monitorar-manchas-de-%C3%B3leo-no-litoral-brasileiro-1.1932128)
+
+- [Pesquisador da UFG cria site que monitora manchas de óleo no litoral brasileiro](https://jornal.ufg.br/n/121930-pesquisador-da-ufg-cria-site-que-monitora-manchas-de-oleo-no-litoral-brasileiro)
+
+- [Ibama alertou diariamente Ministério do Meio Ambiente sobre falta de recursos para ações contra óleo no Nordeste](https://nucleo.jor.br/ecossistema/2020-01-11-ibama-alertas-ministerio-documentos)
