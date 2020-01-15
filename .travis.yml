@@ -48,6 +48,7 @@ r_packages:
   - udunits2
   - janitor
   - leaflet.extras
+  - pacman
 
 os:
   - linux

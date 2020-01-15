@@ -31,4 +31,8 @@ Imports:
     udunits2,
     shiny,
     janitor,
-    leaflet.extras
+    leaflet.extras,
+    pacman
+Remotes:
+    trinker/lexicon,
+    trinker/textclean
