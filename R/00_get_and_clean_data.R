@@ -30,6 +30,11 @@ ipak(
   )
 )
 
+pacman::p_load_gh(
+  "trinker/lexicon",
+  "trinker/textclean"
+)
+
 source(here::here("R", "get_data.R"))
 source(here::here("R", "last_file_on_local_folder.R"))
 source(here::here("R", "from_dms_to_dd.R"))
@@ -126,8 +131,21 @@ longitude_clean <-
 df_clean <- 
   df %>% 
   select(-latitude, -longitude) %>% 
-  bind_cols(latitude_clean, longitude_clean) 
+  bind_cols(latitude_clean, longitude_clean) %>% 
 
+############################################################
+#                                                          #
+#              removendo caracteres non ascii              #
+#                                                          #
+############################################################
+
+  mutate(
+    status = replace_non_ascii(status),
+    status = str_replace(status, "-", ""),
+    status = str_replace(status, "/", ""),
+    status = str_squish(status),
+    status = str_to_lower(status)
+    )
 
 ############################################################
 #                                                          #
