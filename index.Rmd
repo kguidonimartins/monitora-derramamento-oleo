@@ -135,11 +135,19 @@ df %>%
   render_table()
 ```
 
+# Locais que ainda têm óleo
+
+```{r, eval = TRUE}
+df %>%
+  filter(Status %in% c("oleada vestigios esparsos", "oleada manchas")) %>%
+  render_table()
+```
+
 # Locais revisitados que não têm óleo
 
 ```{r, eval = TRUE}
 df %>%
-  filter(!is.na(data_revis), Status == "Óleo - Não Observado") %>%
+  filter(!is.na(data_revis), Status == "oleo nao observado") %>%
   render_table()
 ```
 
@@ -147,7 +155,7 @@ df %>%
 
 ```{r, eval = TRUE}
 df %>%
-  filter(!is.na(data_revis), Status %in% c("Oleada - Vestígios/Esparsos", "Oleada - Manchas")) %>%
+  filter(!is.na(data_revis), Status %in% c("oleada vestigios esparsos", "oleada manchas")) %>%
   render_table()
 ```
 
@@ -155,7 +163,7 @@ df %>%
 
 ```{r, eval = TRUE}
 df %>%
-  filter(is.na(data_revis), Status == "Óleo - Não Observado") %>%
+  filter(is.na(data_revis), Status == "oleo nao observado") %>%
   render_table()
 ```
 
@@ -163,7 +171,7 @@ df %>%
 
 ```{r, eval = TRUE}
 df %>%
-  filter(is.na(data_revis), Status %in% c("Oleada - Vestígios/Esparsos", "Oleada - Manchas")) %>%
+  filter(is.na(data_revis), Status %in% c("oleada vestigios esparsos", "oleada manchas")) %>%
   render_table()
 ```
 
