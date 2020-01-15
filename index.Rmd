@@ -73,7 +73,8 @@ ipak(
     "lubridate",
     "widgetframe",
     "shiny",
-    "leaflet.extras"
+    "leaflet.extras",
+    "pacman"
   )
 )
 
