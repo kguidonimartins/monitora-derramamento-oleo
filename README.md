@@ -1,6 +1,6 @@
 # monitora-derramamento-oleo
 
-[![Build Status](https://travis-ci.com/kguidonimartins/monitora-derramamento-oleo.svg?branch=master)](https://travis-ci.com/kguidonimartins/monitora-derramamento-oleo)
+[![Build Status](https://travis-ci.com/kguidonimartins/monitora-derramamento-oleo.svg?branch=master)](https://travis-ci.com/kguidonimartins/monitora-derramamento-oleo) [![goodtables.io](https://goodtables.io/badge/github/kguidonimartins/monitora-derramamento-oleo.svg)](https://goodtables.io/github/kguidonimartins/monitora-derramamento-oleo)
 
 Scripts para coleta, limpeza e visualização dos dados sobre derramamento de óleo nas praias brasileiras usando os dados publicados regularmente pelo [IBAMA](http://www.ibama.gov.br/manchasdeoleo-localidades-atingidas).
 
