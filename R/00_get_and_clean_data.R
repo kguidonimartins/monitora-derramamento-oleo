@@ -19,7 +19,6 @@ ipak <- function(pkg) {
 ipak(
   c(
     "tidyverse",
-    "tidylog",
     "readxl",
     "here",
     "plotly",
