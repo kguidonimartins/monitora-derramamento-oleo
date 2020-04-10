@@ -19,7 +19,6 @@ ipak <- function(pkg) {
 ipak(
   c(
     "tidyverse",
-    "tidylog",
     "readxl",
     "here",
     "plotly",
@@ -60,8 +59,16 @@ last_file <-
 
 df <-
   read_xlsx(path = last_file) %>%
-  rename_all(str_to_lower) %>%
-  clean_names()
+  rename_all(str_to_lower) # %>%
+  # BUG: travis failing
+  # BODY: 
+  #   Error in stringi::stri_trans_general(replaced_names, id = "Greek-Latin;Latin-ASCII;Accents-Any;Any-ASCII") :
+  #   A '::id' rule specifies an unknown transliterator. (U_INVALID_ID)
+  #   Calls: source ... clean_names.data.frame -> <Anonymous> -> make_clean_names -> <Anonymous>
+  # 
+  # For now, I just block `clean_names()`.
+  # clean_names()
+  
 
 ############################################################
 #                                                          #
