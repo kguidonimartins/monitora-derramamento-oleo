@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.com/kguidonimartins/monitora-derramamento-oleo.svg?branch=master)](https://travis-ci.com/kguidonimartins/monitora-derramamento-oleo) [![goodtables.io](https://goodtables.io/badge/github/kguidonimartins/monitora-derramamento-oleo.svg)](https://goodtables.io/github/kguidonimartins/monitora-derramamento-oleo)
 
+> **Aviso**: o monitoramento de rotina do IBAMA foi encerrado no dia 19 de março de 2020. Novos monitoramentos pontuais poderão ocorrer a partir de denúncias apresentadas ao Instituto. Confira o comunicado oficial [aqui](http://www.ibama.gov.br/manchasdeoleo-localidades-atingidas).
+
 Scripts para coleta, limpeza e visualização dos dados sobre derramamento de óleo nas praias brasileiras usando os dados publicados regularmente pelo [IBAMA](http://www.ibama.gov.br/manchasdeoleo-localidades-atingidas).
 
 Veja o relatório online [aqui](https://kguidonimartins.github.io/monitora-derramamento-oleo/index.html)!
